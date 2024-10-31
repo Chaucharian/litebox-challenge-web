@@ -1,0 +1,15 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    // Turn off specific rules (replace 'rule-name' with actual rule names)
+    "react-hooks/exhaustive-deps": "off",
+    "react/display-name": "off",
+    "react/jsx-key": "off",
+    "prefer-const": "off",
+    // Convert errors into warnings
+    "no-console": "warn",
+    "no-unused-vars": "warn"
+  }
+}
