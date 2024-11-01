@@ -20,9 +20,16 @@ export default function Home() {
           }}
         />
       </Box>
-      <Box h="100vh"/>
+      <Box h="100vh" />
 
-<Dropdown value={null} options={[{ value: 'POPULARES', label: 'POPULARES'}, { value: 'MIS PELICULAS', label: 'MIS PELICULAS'}]} />
+      <Dropdown
+        value={null}
+        value={'POPULARES'}
+        options={[
+          { value: "POPULARES", label: "POPULARES" },
+          { value: "MIS PELICULAS", label: "MIS PELICULAS" },
+        ]}
+      />
       <MovieCard
         movie={{
           image:

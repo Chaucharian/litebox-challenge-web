@@ -9,7 +9,7 @@ import {
   Text,
 } from "@marplacode/ui-kit";
 
-export const Menu = ({ options, onOptionClick }) => {
+export const Menu = ({ options, onSelect = () => {} }) => {
   return (
     <VStack alignItems="start" w="100%" h="100%" px="12" py="20" spacing="8">
       {/* Options */}
@@ -21,7 +21,7 @@ export const Menu = ({ options, onOptionClick }) => {
             cursor="pointer"
             fontWeight="400"
             fontSize={{ base: "16px", lg: "22px" }}
-            onClick={() => onOptionClick(option)}
+            onClick={() => onSelect(option)}
           >
             {option.label}
           </Text>
@@ -39,6 +39,7 @@ export const Menu = ({ options, onOptionClick }) => {
             cursor="pointer"
             fontWeight="700"
             fontSize={{ base: "16px", lg: "22px" }}
+            onClick={() => onSelect({ label: "AGREGAR PELICULA", url: "my-movies" })}
           >
             AGREGAR PELICULA
           </Text>
@@ -49,7 +50,7 @@ export const Menu = ({ options, onOptionClick }) => {
           cursor="pointer"
           fontWeight="400"
           fontSize={{ base: "16px", lg: "22px" }}
-          onClick={() => onOptionClick(option)}
+          onClick={() => onSelect({ label: "AGREGAR PELICULA", url: "my-movies" })}
         >
           CERRAR SESSION
         </Text>

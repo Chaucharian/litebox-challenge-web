@@ -10,7 +10,7 @@ import {
 } from "@marplacode/ui-kit";
 import { Button } from "./Button";
 
-export const MovieCard = ({ movie, onPlay }) => {
+export const FileField = ({ movie, onPlay }) => {
   return (
     <VStack
       h="172px"

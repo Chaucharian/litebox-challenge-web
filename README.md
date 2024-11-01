@@ -1,4 +1,4 @@
-## SKATE BUILDER VISUALIZER 
+## LITFLIX challenge
 
 ## Getting Started 
 

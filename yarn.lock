@@ -1595,9 +1595,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@marplacode/ui-kit@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@marplacode/ui-kit@npm:0.1.0"
+"@marplacode/ui-kit@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@marplacode/ui-kit@npm:0.1.1"
   dependencies:
     "@chakra-ui/react": ^2.8.2
     "@emotion/react": ^11.11.4
@@ -1614,7 +1614,7 @@ __metadata:
   peerDependencies:
     react: ^18.1.0
     react-dom: ^18.1.0
-  checksum: 1665399d8c93d2ae63823042275acd8cd26d724a021a58d783e37b484484542284f10bd7168a22b31e5f3629f2dd4ecc1a649100af6bc521fed66224fae0159b
+  checksum: 6d3350c3854c68d792df52958a748fed0923e4e372724396ad976e14e4ef678595c1e7b420b796ddd399e0668e5a265c40392ff6187182d4a8bca2b2f51471f8
   languageName: node
   linkType: hard
 
@@ -4144,7 +4144,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "litlfix-web@workspace:."
   dependencies:
-    "@marplacode/ui-kit": ^0.1.0
+    "@marplacode/ui-kit": ^0.1.1
     "@types/node": ^20
     "@types/react": ^18
     "@types/react-dom": ^18

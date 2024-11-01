@@ -11,12 +11,12 @@ import {
   Text,
 } from "@marplacode/ui-kit";
 
-export const Dropdown = ({ options, value, onOptionSelect }) => {
+export const Dropdown = ({ options, value, onSelect = () => {} }) => {
   const { value: isOpen, toggle } = useToggle();
 
   return (
     <VStack w="100%" position={"relative"}>
-      <HDStack onClick={() => toggle()} cursor="pointer">
+      <HDStack onClick={() => toggle()} cursor="pointer" position={"relative"}>
         <Text
           fontSize={{ base: "18px", lg: "30px" }}
           fontWeight="400"
@@ -32,7 +32,9 @@ export const Dropdown = ({ options, value, onOptionSelect }) => {
           {value ?? options[0].value}
         </Text>
 
-        <ArrowButton show={isOpen} orientation="down" size="6" />
+        <Box position={'absolute'} right="-5" top={isOpen ? '2' : '-2'}>
+        <ArrowButton show={isOpen} orientation="up" size="6" />
+        </Box>
       </HDStack>
 
       {isOpen && (
@@ -50,7 +52,7 @@ export const Dropdown = ({ options, value, onOptionSelect }) => {
           borderColor={theme.colors.white}
         >
           {options.map((option) => (
-            <HDStack onClick={onOptionSelect(option.value)}>
+            <HDStack onClick={onSelect(option.value)} cursor='pointer'>
               <Text
                 fontSize={{ base: "18px", lg: "30px" }}
                 fontWeight={value === option.value ? "700" : "400"}
