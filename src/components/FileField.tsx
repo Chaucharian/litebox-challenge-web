@@ -1,69 +1,67 @@
 import { theme } from "@/config/theme";
 import {
   Box,
-  HDStack,
-  HStack,
   Image,
   VStack,
-  Text,
-  MotionBox,
 } from "@marplacode/ui-kit";
 import { Button } from "./Button";
+import { useState, useRef } from "react";
 
-export const FileField = ({ movie, onPlay }) => {
+type FileFieldProps = {
+  single?: boolean
+  onChange?: (file: File | FileList | null) => void;
+};
+
+export const FileField = ({ single = true, onChange }: FileFieldProps) => {
+  const [file, setFile] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Handle file selection
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile =  single ? e.target.files?.[0] || null : e.target.files;
+    setFile(selectedFile !== null ? true : false);
+    if (onChange) onChange(selectedFile);
+  };
+
+  // Open file dialog
+  const openFileDialog = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
     <VStack
-      h="172px"
       w="100%"
-      borderRadius={"10px"}
-      position="relative"
-      overflow={"hidden"}
+      border={`1px dashed ${theme.colors.white}`}
+      justify="center"
+      align="center"
+      bg={theme.colors.grey}
     >
-      <VStack h="100%" w="100%" justifyContent={"center"} spacing="5">
-        {/* Play button */}
-        <VStack
-          w="48px"
-          h="48px"
-          justify="center"
-          borderRadius={"50px"}
-          borderWidth="2px"
-          borderColor={theme.colors.white}
-          onClick={onPlay}
-        >
-          <Box w="20px" h="20px">
-            <Image src="images/play_icon.svg" />
+      <Button
+        leftIcon={
+          <Box w="16px" h="16px">
+            <Image src="images/clip_icon.svg" />
           </Box>
-        </VStack>
-
-        <Text
-          fontSize={{ base: "20px", lg: "30px" }}
-          fontWeight="700"
-          color={theme.colors.white}
-        >
-          LITFLIX
-        </Text>
-      </VStack>
-
-      {/* back image */}
-      <Box
-        width="100%"
-        height="100%"
-        position={"absolute"}
-        left="0"
-        zIndex={-1}
+        }
+        type="button" 
+        onClick={openFileDialog}
       >
-        <img
-          src={movie.image}
-          style={{ objectFit: "cover", height: "100%", width: "100%" }}
-        />
-      </Box>
-      <Box
-        width="100%"
-        height="80px"
-        position={"absolute"}
-        bottom={0}
-        background={`linear-gradient(#24242400, ${theme.colors.grey})`}
+        {file ? "Change File" : "Agregá un archivo"}
+      </Button>
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        style={{ display: "none" }}
+        onChange={handleFileChange}
       />
     </VStack>
   );
 };
+
+
+
+
+
+

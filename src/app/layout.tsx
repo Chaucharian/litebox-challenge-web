@@ -6,7 +6,13 @@ import { useToggle, VStack } from "@marplacode/ui-kit";
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import "./globals.css";
-import { useRouter as useRouterM } from "@marplacode/ui-kit";
+import { useRouter as useMarplaRouter } from "@marplacode/ui-kit";
+import {
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+const queryClient = new QueryClient();
 
 const UiKitProvider: any = dynamic(
   () => import("@marplacode/ui-kit").then((module) => module.UiKitProvider),
@@ -33,30 +39,36 @@ export default function RootLayout({
           router={router}
           pathname={pathname}
           loaderConfig={{
-            // primaryColor: theme.colors.white,
+            primaryColor: theme.colors.green,
             secondaryColor: theme.colors.grey,
           }}
         >
-          <CommonLayout>{children}</CommonLayout>
+          <QueryClientProvider client={queryClient}>
+            <CommonLayout>{children}</CommonLayout>
+          </QueryClientProvider>
         </UiKitProvider>
       </body>
     </html>
   );
 }
 
-export const CommonLayout = ({  children }) => {
+export const CommonLayout = ({ children }) => {
   const { value: isMenuOpen, toggle: toggleMenu } = useToggle();
-  const router = useRouterM();
+  const router = useMarplaRouter();
 
   const changePage = (url) => {
-    router.push(url)
+    router.push(url);
     // wait till loader finished
-    setTimeout(()=>toggleMenu(),2000)
-  }
+    setTimeout(() => toggleMenu(), 2000);
+  };
 
   return (
     <>
-      <Header isOpen={isMenuOpen} onOpenMenu={() => toggleMenu()} />
+      <Header
+        isOpen={isMenuOpen}
+        onLogoClick={() => changePage("/")}
+        onBurgerClick={() => toggleMenu()}
+      />
       {isMenuOpen ? (
         <VStack h="calc(100vh - 80px)" w="100%" bg={theme.colors.grey}>
           <Menu

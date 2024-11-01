@@ -12,7 +12,7 @@ import { MovieCard } from "./MovieCard";
 
 export const MovieList = ({ movies, onPlay, ...rest }) => {
   return (
-    <VStack spacing="5" {...rest}>
+    <VStack spacing="5" w="100%" {...rest}>
       {movies.map((movie) => (
         <MovieCard movie={movie} onPlay />
       ))}

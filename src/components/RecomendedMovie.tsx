@@ -49,7 +49,7 @@ export const RecomendedMovie = ({ movie }) => {
 
       {/* back image */}
       <Box width="100%" height="100vh" position={"absolute"} zIndex={-1}>
-        <img src={movie.image} style={{ objectFit: "cover", height: "100%" }} />
+        <img src={movie.imageUrl} style={{ objectFit: "cover", height: "100%", width: '100%' }} />
       </Box>
       <Box width="100%" height="400px" position={"absolute"} bottom={0} background={`linear-gradient(#24242400, ${theme.colors.grey})`} />
     </VStack>

@@ -11,7 +11,7 @@ import {
   Text,
 } from "@marplacode/ui-kit";
 
-export const Dropdown = ({ options, value, onSelect = () => {} }) => {
+export const Dropdown = ({ options, value, onChange = () => {} }) => {
   const { value: isOpen, toggle } = useToggle();
 
   return (
@@ -32,8 +32,8 @@ export const Dropdown = ({ options, value, onSelect = () => {} }) => {
           {value ?? options[0].value}
         </Text>
 
-        <Box position={'absolute'} right="-5" top={isOpen ? '2' : '-2'}>
-        <ArrowButton show={isOpen} orientation="up" size="6" />
+        <Box position={"absolute"} right="-5" top={isOpen ? "2" : "-2"}>
+          <ArrowButton show={isOpen} orientation="up" size="6" />
         </Box>
       </HDStack>
 
@@ -52,7 +52,7 @@ export const Dropdown = ({ options, value, onSelect = () => {} }) => {
           borderColor={theme.colors.white}
         >
           {options.map((option) => (
-            <HDStack onClick={onSelect(option.value)} cursor='pointer'>
+            <HDStack justify="space-between" w="100%" onClick={() => onChange(option.value)} cursor="pointer">
               <Text
                 fontSize={{ base: "18px", lg: "30px" }}
                 fontWeight={value === option.value ? "700" : "400"}
@@ -61,7 +61,8 @@ export const Dropdown = ({ options, value, onSelect = () => {} }) => {
                 {option.label}
               </Text>
               <Box w="16px" h="16px">
-                <Image src="check_icon.svg" />
+                {value === option.value && <Image src="images/check_icon.svg" />}
+                
               </Box>
             </HDStack>
           ))}

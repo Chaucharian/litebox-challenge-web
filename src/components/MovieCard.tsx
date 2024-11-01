@@ -40,7 +40,7 @@ export const MovieCard = ({ movie, onPlay }) => {
           fontWeight="700"
           color={theme.colors.white}
         >
-          LITFLIX
+          {movie.title}
         </Text>
       </VStack>
 
@@ -53,7 +53,7 @@ export const MovieCard = ({ movie, onPlay }) => {
         zIndex={-1}
       >
         <img
-          src={movie.image}
+          src={movie.imageUrl}
           style={{ objectFit: "cover", height: "100%", width: "100%" }}
         />
       </Box>
