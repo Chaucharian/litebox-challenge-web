@@ -44,6 +44,7 @@ export default function Home() {
       <Box position={"absolute"} h="100vh" w="100%" top="0" zIndex={-1}>
         <RecomendedMovie
           movie={featuredMovie}
+          delay={1.2}
         />
       </Box>
       <Box h="100vh" />
@@ -58,6 +59,7 @@ export default function Home() {
         zIndex={1}
       >
         <Dropdown
+        delay={1}
           value={selectedCategory}
           options={[
             { value: "POPULARES", label: "POPULARES" },
@@ -66,7 +68,7 @@ export default function Home() {
           onChange={handleDropdownChange}
         />
 
-        <MovieList movies={movies ?? []} isLoading={moviesLoading} />
+        <MovieList movies={movies ?? []} isLoading={moviesLoading} delay={1.2}/>
       </VStack>
     </VStack>
   );

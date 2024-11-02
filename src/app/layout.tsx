@@ -67,6 +67,7 @@ export const CommonLayout = ({ children }) => {
       <Box position={"fixed"} zIndex={2}>
         <Header
           isOpen={isMenuOpen}
+          delay={1.3}
           onLogoClick={() => changePage("/")}
           onAddMovie={() => changePage("/my-movies")}
           onBurgerClick={() => toggleMenu()}

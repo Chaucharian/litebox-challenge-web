@@ -10,45 +10,55 @@ import {
   VStack,
   Text,
   useClickOutside,
+  MotionBox,
 } from "@marplacode/ui-kit";
 import { useRef } from "react";
 
-export const Dropdown = ({ options, value, onChange = () => {} }) => {
+export const Dropdown = ({
+  options,
+  value,
+  delay = 0,
+  onChange = () => {},
+}) => {
   const { value: isOpen, toggle, off } = useToggle();
-  const ref = useRef()
-  useClickOutside({ refs: [ref], onClickOutside: () => off() })
+  const ref = useRef();
+  useClickOutside({ refs: [ref], onClickOutside: () => off() });
 
   const changeValue = (value) => {
-    onChange(value)
-    setTimeout(()=> off(), 1300)
-  }
+    onChange(value);
+    off();
+  };
 
   return (
     <VStack w="100%" position={"relative"} ref={ref}>
-      <HDStack onClick={() => toggle()} cursor="pointer" position={"relative"}>
-        <Text
-          fontSize={{ base: "18px", lg: "30px" }}
-          fontWeight="400"
-          color={theme.colors.white}
+      <MotionBox show delay={delay}>
+        <HDStack
+          onClick={() => toggle()}
+          cursor="pointer"
+          position={"relative"}
         >
-          VER:
-        </Text>
-        <Box minW={{base: "80px",lg:"150px"}}>
-        <Text
-          fontSize={{ base: "18px", lg: "30px" }}
-          fontWeight="700"
-          color={theme.colors.white}
-          
-        >
-          {value ?? options[0].value}
-        </Text>
-        </Box>
-        
+          <Text
+            fontSize={{ base: "18px", lg: "30px" }}
+            fontWeight="400"
+            color={theme.colors.white}
+          >
+            VER:
+          </Text>
+          <Box minW={{ base: "80px", lg: "150px" }}>
+            <Text
+              fontSize={{ base: "18px", lg: "30px" }}
+              fontWeight="700"
+              color={theme.colors.white}
+            >
+              {value ?? options[0].value}
+            </Text>
+          </Box>
+        </HDStack>
+      </MotionBox>
 
-        <Box position={"absolute"} right="-5" top={isOpen ? "2" : "-2"}>
-          <ArrowButton show={isOpen} orientation="up" size="6" />
-        </Box>
-      </HDStack>
+      <Box position={"absolute"} right="0" top="0" top={isOpen ? "2" : "-2"}>
+        <ArrowButton show={isOpen} orientation="up" size="6" />
+      </Box>
 
       {isOpen && (
         <VStack
@@ -65,7 +75,12 @@ export const Dropdown = ({ options, value, onChange = () => {} }) => {
           borderColor={theme.colors.white}
         >
           {options.map((option) => (
-            <HDStack justify="space-between" w="100%" onClick={() => changeValue(option.value)} cursor="pointer">
+            <HDStack
+              justify="space-between"
+              w="100%"
+              onClick={() => changeValue(option.value)}
+              cursor="pointer"
+            >
               <Text
                 fontSize={{ base: "18px", lg: "30px" }}
                 fontWeight={value === option.value ? "700" : "400"}
@@ -74,8 +89,9 @@ export const Dropdown = ({ options, value, onChange = () => {} }) => {
                 {option.label}
               </Text>
               <Box w="16px" h="16px">
-                {value === option.value && <Image src="images/check_icon.svg" />}
-                
+                {value === option.value && (
+                  <Image src="images/check_icon.svg" />
+                )}
               </Box>
             </HDStack>
           ))}

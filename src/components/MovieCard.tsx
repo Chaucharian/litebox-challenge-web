@@ -10,7 +10,7 @@ import {
 } from "@marplacode/ui-kit";
 import { Button } from "./Button";
 
-export const MovieCard = ({ movie, onPlay }) => {
+export const MovieCard = ({ movie, delay =0, onPlay }) => {
   return (
     <VStack
     minH="146px"
@@ -23,6 +23,7 @@ export const MovieCard = ({ movie, onPlay }) => {
     >
       <VStack h="100%" w="100%" justifyContent={"center"} spacing="5">
         {/* Play button */}
+        <MotionBox show delay={delay}>
         <VStack
           w="48px"
           h="48px"
@@ -36,11 +37,17 @@ export const MovieCard = ({ movie, onPlay }) => {
             <Image src="images/play_icon.svg" />
           </Box>
         </VStack>
+        </MotionBox>
+        
 
         <Text
           fontSize={{ base: "20px", lg: "30px" }}
           fontWeight="700"
           color={theme.colors.white}
+          show
+          direction="bottom" 
+          delay={delay}
+
         >
           {movie.title}
         </Text>
@@ -54,10 +61,11 @@ export const MovieCard = ({ movie, onPlay }) => {
         left="0"
         zIndex={-1}
       >
-        <img
+        <Image show src={movie.imageUrl} fit="cover" direction="right" delay={delay}/>
+        {/* <img
           src={movie.imageUrl}
           style={{ objectFit: "cover", height: "100%", width: "100%" }}
-        />
+        /> */}
       </Box>
       <Box
         width="100%"
