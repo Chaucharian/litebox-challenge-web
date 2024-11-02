@@ -2,7 +2,7 @@
 import { Header } from "@/components/Header";
 import { Menu } from "@/components/Menu";
 import { theme } from "@/config/theme";
-import { useToggle, VStack } from "@marplacode/ui-kit";
+import { Box, useToggle, VStack } from "@marplacode/ui-kit";
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import "./globals.css";
@@ -63,15 +63,23 @@ export const CommonLayout = ({ children }) => {
   };
 
   return (
-    <>
-      <Header
-        isOpen={isMenuOpen}
-        onLogoClick={() => changePage("/")}
-        onAddMovie={() => changePage("/my-movies")}
-        onBurgerClick={() => toggleMenu()}
-      />
+    <VStack>
+      <Box position={"fixed"} zIndex={2}>
+        <Header
+          isOpen={isMenuOpen}
+          onLogoClick={() => changePage("/")}
+          onAddMovie={() => changePage("/my-movies")}
+          onBurgerClick={() => toggleMenu()}
+        />
+      </Box>
+
       {isMenuOpen ? (
-        <VStack h="calc(100vh - 80px)" w="100%" bg={theme.colors.grey}>
+        <VStack
+          h="calc(100vh - 80px)"
+          w="100%"
+          px={theme.spacing.pxLarge}
+          bg={theme.colors.grey}
+        >
           <Menu
             options={[
               { label: "INICIO", url: "/" },
@@ -86,8 +94,9 @@ export const CommonLayout = ({ children }) => {
           />
         </VStack>
       ) : (
-        children
+        <VStack pt="80px" w="100%">{children}</VStack>
+        
       )}
-    </>
+    </VStack>
   );
 };

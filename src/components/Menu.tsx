@@ -11,7 +11,7 @@ import {
 
 export const Menu = ({ options, onSelect = () => {} }) => {
   return (
-    <VStack alignItems="start" w="100%" h="100%" px="12" py="20" spacing="8">
+    <VStack alignItems="start" w="100%" h="100%" py="20" spacing="8">
       {/* Options */}
       <VStack justifyContent="space-between" alignItems="start" spacing="8">
         {options.map((option, index) => (

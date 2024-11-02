@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import axios from "axios";
 import { MovieList } from "@/components/MovieList";
+import { theme } from '@/config/theme';
 
 const fetchMovies = async (endpoint) => {
   const { data } = await axios.get(`api/movies/${endpoint}`);
@@ -37,9 +38,8 @@ export default function Home() {
       direction={{ base: "column", lg: "row" }}
       justifyContent="space-between"
       w="100%"
-      px={{ base: "12", lg: "20" }}
+      px={theme.spacing.pxLarge}
       spacing="10"
-      overflow={"hidden"}
     >
       <Box position={"absolute"} h="100vh" w="100%" top="0" zIndex={-1}>
         <RecomendedMovie
@@ -49,13 +49,13 @@ export default function Home() {
       <Box h="100vh" />
 
       <VStack
-        // overflow={"hidden"}
         w={{ base: "100%", lg: "220px" }}
         spacing="10"
-        position={{ lg: "absolute" }}
+        position={{base:'unset', lg: "absolute" }}
         h={{ lg: "100%" }}
-        right="14"
-        zIndex={10}
+        justify={{base:'center'}}
+        right={theme.spacing.pxLarge}
+        zIndex={1}
       >
         <Dropdown
           value={selectedCategory}
