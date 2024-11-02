@@ -1,18 +1,25 @@
-import { theme } from "@/config/theme";
 import {
-  Box,
-  HDStack,
-  HStack,
-  Image,
   VStack,
-  Text,
-  MotionBox,
 } from "@marplacode/ui-kit";
 import { MovieCard } from "./MovieCard";
 
-export const MovieList = ({
+// Exported Interfaces
+export interface Movie {
+  createdAt: string; // ISO string format "2024-11-01T22:22:31.025Z"
+  // Add other properties of the movie if needed
+}
+
+export interface MovieListProps {
+  movies?: Movie[];
+  max?: number;
+  order?: 'asc' | 'desc';
+  delay?: number;
+  onPlay?: (movie: Movie) => void;
+}
+
+export const MovieList: React.FC<MovieListProps> = ({
   movies = [],
-  max = 4,
+  max = 3,
   order = "desc",
   delay = 0,
   onPlay,
@@ -22,16 +29,14 @@ export const MovieList = ({
     const dateA = new Date(a.createdAt);
     const dateB = new Date(b.createdAt);
 
-    return order === "asc" ? dateA - dateB : dateB - dateA; // Ascending or Descending order
+    return order === "asc" ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime(); // Ascending or Descending order
   });
 
   return (
-    // <MotionBox show delay={delay} direction="right">
-      <VStack spacing="5" w="100%" pb="10" {...rest}>
-        {sortedMovies.slice(0, max).map((movie, index) => (
-          <MovieCard movie={movie} delay={delay} />
-        ))}
-      </VStack>
-    // </MotionBox>
+    <VStack spacing="5" w="100%" pb="10" {...rest}>
+      {sortedMovies.slice(0, max).map((movie, index) => (
+        <MovieCard key={index} movie={movie} delay={delay} onPlay={onPlay} />
+      ))}
+    </VStack>
   );
 };

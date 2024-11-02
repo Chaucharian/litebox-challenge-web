@@ -51,11 +51,12 @@ export default function Home() {
 
       <VStack
         w={{ base: "100%", lg: "220px" }}
-        spacing="10"
-        position={{base:'unset', lg: "absolute" }}
         h={{ lg: "100%" }}
-        justify={{base:'center'}}
+        position={{base:'unset', lg: "absolute" }}
         right={theme.spacing.pxLarge}
+        spacing="10"
+        pt="20"
+        
         zIndex={1}
       >
         <Dropdown
@@ -68,7 +69,7 @@ export default function Home() {
           onChange={handleDropdownChange}
         />
 
-        <MovieList movies={movies ?? []} isLoading={moviesLoading} delay={1.2}/>
+        <MovieList movies={movies }  delay={1.2}/>
       </VStack>
     </VStack>
   );

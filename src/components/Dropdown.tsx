@@ -12,29 +12,38 @@ import {
 } from "@marplacode/ui-kit";
 import { useRef } from "react";
 
-export const Dropdown = ({
+// Exported Interfaces
+export interface DropdownOption {
+  value: string;
+  label: string;
+}
+
+export interface DropdownProps {
+  options: DropdownOption[];
+  value?: string;
+  delay?: number;
+  onChange?: (value: string) => void;
+}
+
+export const Dropdown: React.FC<DropdownProps> = ({
   options,
   value,
   delay = 0,
   onChange = () => {},
 }) => {
   const { value: isOpen, toggle, off } = useToggle();
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement | null>(null);
   useClickOutside({ refs: [ref], onClickOutside: () => off() });
 
-  const changeValue = (value) => {
-    onChange(value);
+  const changeValue = (newValue: string) => {
+    onChange(newValue);
     off();
   };
 
   return (
-    <VStack w="100%" position={"relative"} ref={ref}>
+    <VStack w="100%" position="relative" ref={ref}>
       <MotionBox show delay={delay}>
-        <HDStack
-          onClick={() => toggle()}
-          cursor="pointer"
-          position={"relative"}
-        >
+        <HDStack onClick={toggle} cursor="pointer" position="relative">
           <Text
             fontSize={{ base: "18px", lg: "30px" }}
             fontWeight="400"
@@ -54,19 +63,19 @@ export const Dropdown = ({
         </HDStack>
       </MotionBox>
 
-      <Box position={"absolute"} right="0" top={isOpen ? "2" : "-2"}>
+      <Box position="absolute" right="0" top={isOpen ? "2" : "-2"}>
         <ArrowButton show={isOpen} orientation="up" size="6" />
       </Box>
 
       {isOpen && (
         <VStack
-          position={"absolute"}
+          position="absolute"
           zIndex={10}
           top="10"
           w="100%"
           px="8"
           py="10"
-          justify={"center"}
+          justify="center"
           alignItems="start"
           bg={theme.colors.grey}
           borderWidth="0.5px"
@@ -74,6 +83,7 @@ export const Dropdown = ({
         >
           {options.map((option) => (
             <HDStack
+              key={option.value}
               justify="space-between"
               w="100%"
               onClick={() => changeValue(option.value)}
