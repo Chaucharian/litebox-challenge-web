@@ -1,5 +1,5 @@
 "use client";
-import './globals.css'
+import "./globals.css";
 import { Box, VStack } from "@marplacode/ui-kit";
 import { RecomendedMovie } from "@/components/RecomendedMovie";
 import { Dropdown } from "@/components/Dropdown";
@@ -7,9 +7,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import axios from "axios";
 import { MovieList } from "@/components/MovieList";
-import { theme } from '@/config/theme';
+import { theme } from "@/config/theme";
 
-const fetchMovies = async (endpoint) => {
+const fetchMovies = async (endpoint:string) => {
   const { data } = await axios.get(`api/movies/${endpoint}`);
   return data;
 };
@@ -17,7 +17,7 @@ const fetchMovies = async (endpoint) => {
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("POPULARES");
 
-  const { data: movies, isLoading: moviesLoading } = useQuery({
+  const { data: movies } = useQuery({
     queryKey: ["movies", selectedCategory],
     queryFn: () =>
       fetchMovies(selectedCategory === "MIS PELICULAS" ? "my" : "popular"),
@@ -42,25 +42,21 @@ export default function Home() {
       spacing="10"
     >
       <Box position={"absolute"} h="100vh" w="100%" top="0" zIndex={-1}>
-        <RecomendedMovie
-          movie={featuredMovie}
-          delay={1.2}
-        />
+        <RecomendedMovie movie={featuredMovie} delay={1.2} />
       </Box>
       <Box h="100vh" />
 
       <VStack
         w={{ base: "100%", lg: "220px" }}
         h={{ lg: "100%" }}
-        position={{base:'unset', lg: "absolute" }}
+        position={{ base: "unset", lg: "absolute" }}
         right={theme.spacing.pxLarge}
         spacing="10"
         pt="20"
-        
         zIndex={1}
       >
         <Dropdown
-        delay={1}
+          delay={1}
           value={selectedCategory}
           options={[
             { value: "POPULARES", label: "POPULARES" },
@@ -69,7 +65,7 @@ export default function Home() {
           onChange={handleDropdownChange}
         />
 
-        <MovieList movies={movies }  delay={1.2}/>
+        <MovieList movies={movies} delay={1.2} />
       </VStack>
     </VStack>
   );

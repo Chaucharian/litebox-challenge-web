@@ -10,28 +10,35 @@ import {
 } from "@marplacode/ui-kit";
 import { Button } from "./Button";
 
-function splitTextInMiddle(text) {
-  // Trim the input text to remove any leading/trailing whitespace
+// Exported Interfaces
+export interface Movie {
+  title: string;
+  imageUrl: string;
+}
+
+export interface RecomendedMovieProps {
+  movie?: Movie;
+  delay?: number;
+}
+
+// Utility function to split text in the middle
+function splitTextInMiddle(text: string) {
   const trimmedText = text.trim();
-  
-  // Calculate the midpoint
   const midIndex = Math.floor(trimmedText.length / 2);
-  
-  // Split into two parts
   const firstPart = trimmedText.slice(0, midIndex);
   const secondPart = trimmedText.slice(midIndex);
-  
   return { firstPart, secondPart };
 }
 
-export const RecomendedMovie = ({
+export const RecomendedMovie: React.FC<RecomendedMovieProps> = ({
   movie = { title: "", imageUrl: "" },
   delay = 0,
 }) => {
-  const { firstPart, secondPart } = splitTextInMiddle(movie.title ?? '')
+  const { firstPart, secondPart } = splitTextInMiddle(movie.title ?? "");
+
   return (
     <VStack
-      position={"relative"}
+      position="relative"
       w={{ lg: "100%" }}
       justify={{ lg: "space-between" }}
       flexDirection={{ base: "column", lg: "row" }}
@@ -39,7 +46,7 @@ export const RecomendedMovie = ({
       align={{ lg: "start" }}
     >
       <VStack
-        justifyContent={"end"}
+        justifyContent="end"
         align={{ lg: "start" }}
         h="100%"
         px={{ base: "12", lg: "20" }}
@@ -72,7 +79,7 @@ export const RecomendedMovie = ({
               delay={delay + 0.5}
               direction="top"
             >
-             {firstPart}
+              {firstPart}
             </Text>
             <Text
               fontSize={{ base: "76px", lg: "96px" }}
@@ -114,19 +121,23 @@ export const RecomendedMovie = ({
         </HStack>
       </VStack>
 
-      {/* back image */}
-      <Box width="100%" height="100vh" position={"absolute"} zIndex={-1}>
+      {/* Back image */}
+      <Box width="100%" height="100vh" position="absolute" zIndex={-1}>
         <img
           src={movie.imageUrl}
-          style={{ objectFit: "cover", height: "100%", width: "100%",
-          animation: "zoomOut 5s ease"
-        }}
+          style={{
+            objectFit: "cover",
+            height: "100%",
+            width: "100%",
+            animation: "zoomOut 5s ease",
+          }}
+          alt={movie.title} // Added alt text for accessibility
         />
       </Box>
       <Box
         width="100%"
         height="400px"
-        position={"absolute"}
+        position="absolute"
         bottom={0}
         background={`linear-gradient(#24242400, ${theme.colors.grey})`}
       />

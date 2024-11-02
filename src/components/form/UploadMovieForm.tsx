@@ -36,7 +36,7 @@ export function UploadMovieForm() {
     },
   });
 
-  const submitEnabled = image && title;
+  const submitEnabled = Boolean(image && title);
 
   const handleFileChange = (file: File) => {
     if (file) setImage(file);

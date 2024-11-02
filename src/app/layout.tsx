@@ -19,6 +19,14 @@ const UiKitProvider: any = dynamic(
   { ssr: false }
 );
 
+const menuOptions =  [{ label: "INICIO", url: "/" },
+{ label: "SERIES", url: "my-movies" },
+{ label: "PELICULAS", url: "my-movies" },
+{ label: "AGREGADO RECIENTEMENTE", url: "my-movies" },
+{ label: "POPULARES", url: "my-movies" },
+{ label: "MIS PELICULAS", url: "my-movies" },
+{ label: "MI LISTA", url: "my-movies" } ]
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -82,15 +90,7 @@ export const CommonLayout = ({ children }) => {
           bg={theme.colors.grey}
         >
           <Menu
-            options={[
-              { label: "INICIO", url: "/" },
-              { label: "SERIES", url: "my-movies" },
-              { label: "PELICULAS", url: "my-movies" },
-              { label: "AGREGADO RECIENTEMENTE", url: "my-movies" },
-              { label: "POPULARES", url: "my-movies" },
-              { label: "MIS PELICULAS", url: "my-movies" },
-              { label: "MI LISTA", url: "my-movies" },
-            ]}
+            options={menuOptions}
             onSelect={({ url }) => changePage(url)}
           />
         </VStack>

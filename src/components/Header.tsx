@@ -2,7 +2,16 @@ import { theme } from "@/config/theme";
 import { Box, Text, HDStack, Image, MotionBox } from "@marplacode/ui-kit";
 import { BurgerButton } from "./BurgerButton";
 
-export const Header = ({
+// Define the props interface for the Header component
+interface HeaderProps {
+  isOpen?: boolean;
+  delay?: number;
+  onBurgerClick: () => void;
+  onLogoClick: () => void;
+  onAddMovie: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({
   isOpen = false,
   delay = 0,
   onBurgerClick,
@@ -24,23 +33,23 @@ export const Header = ({
           <Box
             width="98px"
             height="28px"
-            cursor={"pointer"}
+            cursor="pointer"
             onClick={onLogoClick}
           >
-            <Image src="images/litflix_logo.svg" show />
+            <Image src="images/litflix_logo.svg" alt="Litflix Logo" />
           </Box>
         </MotionBox>
 
         <HDStack alignItems="center" justifyItems="center">
           <Box w="14px" h="14px">
-            <Image src="images/plus_icon.svg" />
+            <Image src="images/plus_icon.svg" alt="Add Movie Icon" />
           </Box>
           <Text
             color={theme.colors.white}
             cursor="pointer"
             fontWeight="700"
             fontSize={{ base: "16px", lg: "22px" }}
-            onClick={() => onAddMovie()}
+            onClick={onAddMovie}
             delay={delay + 0.4}
             direction="top"
             show
@@ -51,44 +60,35 @@ export const Header = ({
       </HDStack>
 
       {/* MOBILE */}
-      
-        <HDStack
-          display={{ base: "flex", lg: "none" }}
-          w="100%"
-          justify="space-between"
+      <HDStack
+        display={{ base: "flex", lg: "none" }}
+        w="100%"
+        justify="space-between"
+      >
+        <BurgerButton isOpen={isOpen} onClick={onBurgerClick} delay={delay} />
+
+        <Box
+          width="98px"
+          height="28px"
+          cursor="pointer"
+          onClick={onLogoClick}
         >
-          
-          <BurgerButton isOpen={isOpen} onClick={onBurgerClick} delay={delay}/>
+          <Image src="images/litflix_logo.svg" alt="Litflix Logo" delay={delay * 0.4} />
+        </Box>
 
-
-          <Box
-            width="98px"
-            height="28px"
-            cursor={"pointer"}
-            onClick={onLogoClick}
-          >
-            <Image src="images/litflix_logo.svg" show delay={delay * 0.4} />
-          </Box>
-
-          <Box />
-
-        </HDStack>
-
+        <Box />
+      </HDStack>
 
       <MotionBox delay={delay * 0.6} direction="top" show>
         <HDStack spacing="6">
           <Box display={{ base: "none", lg: "block" }}>
             <BurgerButton isOpen={isOpen} onClick={onBurgerClick} />
           </Box>
-          <Box
-            display={{ base: "none", lg: "block" }}
-            width="26px"
-            height="26px"
-          >
-            <Image src="images/notification_icon.svg" show />
+          <Box display={{ base: "none", lg: "block" }} width="26px" height="26px">
+            <Image src="images/notification_icon.svg" alt="Notification Icon" />
           </Box>
           <Box width="36px" height="36px">
-            <Image src="images/user_icon.svg" show />
+            <Image src="images/user_icon.svg" alt="User Icon" />
           </Box>
         </HDStack>
       </MotionBox>
