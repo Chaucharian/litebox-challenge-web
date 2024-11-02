@@ -1,7 +1,6 @@
 "use client";
-
 import { useState } from "react";
-import { Box, VStack, Text, useRouter } from "@marplacode/ui-kit";
+import { VStack, useRouter } from "@marplacode/ui-kit";
 import { theme } from "@/config/theme";
 import { FileField, TextField, Button, LineLoader } from "@/components";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -11,8 +10,9 @@ export function UploadMovieForm() {
   const [image, setImage] = useState<File | null>(null);
   const [title, setTitle] = useState<string>("");
   const [uploadProgress, setUploadProgress] = useState<number>(0);
-  const router = useRouter()
-  const queryClient = useQueryClient()
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  
   // Define the mutation for uploading the movie
   const uploadMovieMutation = useMutation({
     mutationFn: (formData: FormData) =>
@@ -28,8 +28,8 @@ export function UploadMovieForm() {
       setTitle("");
       setImage(null);
       setUploadProgress(0);
-      queryClient.invalidateQueries()
-      router.push('success')
+      queryClient.invalidateQueries();
+      router.push("success");
     },
     onError: (error) => {
       console.error("Upload failed:", error);

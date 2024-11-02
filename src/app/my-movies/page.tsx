@@ -1,8 +1,7 @@
 "use client";
-import { Box, VStack,Text } from "@marplacode/ui-kit";
+import { VStack,Text } from "@marplacode/ui-kit";
 import { theme } from "@/config/theme";
-import { FileField } from "@/components/FileField";
-import { UploadMovieForm } from "./form/UploadMovieForm";
+import { UploadMovieForm } from "../../components/form/UploadMovieForm";
 
 export default function MyMovies() {
   return (
