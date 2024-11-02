@@ -59,7 +59,7 @@ export const CommonLayout = ({ children }) => {
   const changePage = (url) => {
     router.push(url);
     // wait till loader finished
-    setTimeout(() => toggleMenu(), 2000);
+    setTimeout(() => isMenuOpen && toggleMenu(), 2000);
   };
 
   return (
@@ -67,6 +67,7 @@ export const CommonLayout = ({ children }) => {
       <Header
         isOpen={isMenuOpen}
         onLogoClick={() => changePage("/")}
+        onAddMovie={() => changePage("/my-movies")}
         onBurgerClick={() => toggleMenu()}
       />
       {isMenuOpen ? (

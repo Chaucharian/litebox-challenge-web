@@ -13,7 +13,9 @@ import { Button } from "./Button";
 export const MovieCard = ({ movie, onPlay }) => {
   return (
     <VStack
-      h="172px"
+    minH="146px"
+    maxH="172px"
+      // h="172px"
       w="100%"
       borderRadius={"10px"}
       position="relative"

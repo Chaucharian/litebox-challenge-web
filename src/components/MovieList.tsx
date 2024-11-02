@@ -10,10 +10,10 @@ import {
 } from "@marplacode/ui-kit";
 import { MovieCard } from "./MovieCard";
 
-export const MovieList = ({ movies, onPlay, ...rest }) => {
+export const MovieList = ({ movies = [], max = 4, onPlay, ...rest }) => {
   return (
     <VStack spacing="5" w="100%" {...rest}>
-      {movies.map((movie) => (
+      {movies.slice(0,max).map((movie) => (
         <MovieCard movie={movie} onPlay />
       ))}
     </VStack>

@@ -1,9 +1,10 @@
 "use client";
+import './globals.css'
 import { Box, VStack } from "@marplacode/ui-kit";
 import { RecomendedMovie } from "@/components/RecomendedMovie";
 import { Dropdown } from "@/components/Dropdown";
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { MovieList } from "@/components/MovieList";
 
@@ -15,7 +16,6 @@ const fetchMovies = async (endpoint) => {
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("POPULARES");
 
-  // Fetch movies based on the selected category
   const { data: movies, isLoading: moviesLoading } = useQuery({
     queryKey: ["movies", selectedCategory],
     queryFn: () =>
@@ -23,42 +23,51 @@ export default function Home() {
     keepPreviousData: true,
   });
 
-  // Fetch featured movie separately
   const { data: featuredMovie, isLoading: featuredLoading } = useQuery({
     queryKey: ["featuredMovie"],
     queryFn: () => fetchMovies("featured"),
   });
 
-  // Handle dropdown change
   const handleDropdownChange = (newValue) => {
-    console.log('adsad',newValue)
     setSelectedCategory(newValue);
   };
 
   return (
-    <VStack direction={{ base: 'column', lg:'row'}} justifyContent="space-between" w="100%" px="12" spacing="10">
+    <VStack
+      direction={{ base: "column", lg: "row" }}
+      justifyContent="space-between"
+      w="100%"
+      px={{ base: "12", lg: "20" }}
+      spacing="10"
+      overflow={"hidden"}
+    >
       <Box position={"absolute"} h="100vh" w="100%" top="0" zIndex={-1}>
-        {featuredLoading ? (
-          <p>Loading featured movie...</p>
-        ) : (
-          <RecomendedMovie movie={featuredMovie} />
-        )}
+        <RecomendedMovie
+          movie={featuredMovie}
+        />
       </Box>
-      <Box 
-      h="90vh"
-      // h={{base:"90vh", lg: '0'}} 
-      />
+      <Box h="100vh" />
 
-      <Dropdown
-        value={selectedCategory}
-        options={[
-          { value: "POPULARES", label: "POPULARES" },
-          { value: "MIS PELICULAS", label: "MIS PELICULAS" },
-        ]}
-        onChange={handleDropdownChange}
-      />
+      <VStack
+        // overflow={"hidden"}
+        w={{ base: "100%", lg: "220px" }}
+        spacing="10"
+        position={{ lg: "absolute" }}
+        h={{ lg: "100%" }}
+        right="14"
+        zIndex={10}
+      >
+        <Dropdown
+          value={selectedCategory}
+          options={[
+            { value: "POPULARES", label: "POPULARES" },
+            { value: "MIS PELICULAS", label: "MIS PELICULAS" },
+          ]}
+          onChange={handleDropdownChange}
+        />
 
-      <MovieList movies={movies ?? []} isLoading={moviesLoading} />
+        <MovieList movies={movies ?? []} isLoading={moviesLoading} />
+      </VStack>
     </VStack>
   );
 }
