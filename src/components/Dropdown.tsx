@@ -2,9 +2,7 @@ import { theme } from "@/config/theme";
 import {
   ArrowButton,
   Box,
-  Button,
   HDStack,
-  HStack,
   Image,
   useToggle,
   VStack,
@@ -56,7 +54,7 @@ export const Dropdown = ({
         </HDStack>
       </MotionBox>
 
-      <Box position={"absolute"} right="0" top="0" top={isOpen ? "2" : "-2"}>
+      <Box position={"absolute"} right="0" top={isOpen ? "2" : "-2"}>
         <ArrowButton show={isOpen} orientation="up" size="6" />
       </Box>
 
